@@ -2,6 +2,7 @@
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.12.2-green?style=for-the-badge&logo=minecraft)
 ![Spigot](https://img.shields.io/badge/Spigot-API-important?style=for-the-badge&logo=java)
 ![Discord](https://img.shields.io/badge/Discord-Webhook-7289DA?style=for-the-badge&logo=discord&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-Bot-7289DA?style=for-the-badge&logo=discord&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 ![Build](https://img.shields.io/badge/Build-Success-brightgreen?style=for-the-badge)
 ![Java](https://img.shields.io/badge/Java-8+-orange?style=for-the-badge&logo=java&logoColor=white)
