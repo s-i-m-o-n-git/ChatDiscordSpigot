@@ -7,80 +7,135 @@
 ![Java](https://img.shields.io/badge/Java-8+-orange?style=for-the-badge&logo=java&logoColor=white)
 ![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge)
 
-## Description
-**ChatDiscord** est un plugin Minecraft qui permet de synchroniser les messages du chat en jeu avec un salon Discord via un webhook. Les joueurs peuvent envoyer des messages qui apparaîtront dans Discord avec leur pseudo et un avatar personnalisé basé sur leur skin Minecraft.
+
+Un plugin Minecraft (Spigot/Paper) qui synchronise le chat Minecraft avec Discord en utilisant un Webhook et un bot Discord via JDA.
+
+## ✨ Fonctionnalités
+
+* 📡 Envoie les messages du chat Minecraft vers un Webhook Discord.
+* 🔁 Affiche les messages d’un salon Discord dans le chat Minecraft.
+* 📡 Envoie les messages du salon Dsicord vers le chat Minecraft.
+* 🔔 Notifications de connexion/déconnexion des joueurs.
+* 🔔 Notifications quand le serveur se démarre et s'arréte.
+* 🔧 Création automatique du fichier `config.yml`.
+* 🛠️ Commande `/showchatwebhook` pour afficher le Webhook actuel (réservée aux opérateurs).
 
 ---
 
-## Fonctionnalités
-- **Synchronisation du chat Minecraft vers Discord** : 
-  Les messages des joueurs sont envoyés directement à un salon Discord via un webhook.
-- **Avatar personnalisé** : 
-  Affiche l'avatar du joueur dans Discord basé sur son skin Minecraft.
-- **Configuration simple** : 
-  Configurez rapidement l'URL du webhook Discord via un fichier `config.yml`.
+## 📁 Installation
+
+1. Télécharge le fichier `.jar` compilé du plugin (voir plus bas si tu dois le compiler toi-même). ( ou dans les releases v2 )
+2. Place-le dans le dossier `plugins/` de ton serveur Minecraft Spigot ou Paper.
+3. Redémarre le serveur.
+4. Configure le fichier `config.yml` généré dans `plugins/ChatDiscord/`.
 
 ---
 
-## Installation for RELEASE
-1. Téléchargez le fichier `.jar` du plugin.
-2. Placez le fichier `.jar` dans le dossier `plugins` de votre serveur Minecraft.
-3. Redémarrez le serveur ou rechargez les plugins avec la commande `/reload`.
+## 🔧 Configuration (`config.yml`)
 
-## Compilation
-1. Cloner le repertoire
-2. Ouvrer le avec un IDE
-3. Compiler le projet en rajoutant bien le plugin.yml dans la racine du .jar ainsi que spigot-1.12.2.jar en lib
-
----
-
-## Configuration
-Lors du premier démarrage, un fichier `config.yml` est généré dans le dossier `plugins/ChatDiscord`. 
-
-### Exemple de fichier `config.yml` :
 ```yaml
 webhook: "https://discord.com/api/webhooks/..."
+token: "TON_TOKEN_BOT_DISCORD"
+server_id: "ID_DU_SERVEUR_DISCORD"
+channel_id: "ID_DU_CHANNEL_DISCORD"
 ```
 
-- Remplacez `https://discord.com/api/webhooks/...` par l'URL de votre webhook Discord.
-- Sauvegardez le fichier.
-- Rechargez le plugin avec la commande `/reload`.
+### Description des champs
+
+* **webhook** : URL du Webhook Discord pour recevoir les messages de Minecraft.
+* **token** : Token du bot Discord (nécessaire pour que le bot puisse lire les messages Discord).
+* **server\_id** : ID de ton serveur Discord.
+* **channel\_id** : ID du salon Discord où le bot lit les messages.
 
 ---
 
-## Commandes
-| Commande            | Description                            | Permission requise |
-|---------------------|----------------------------------------|--------------------|
-| `/showchatwebhook`  | Affiche l'URL du webhook configuré.    | OP                 |
+## 🧑‍💻 Compilation du plugin (IntelliJ IDEA)
+
+### ✅ Prérequis
+
+* Java JDK 8 ou supérieur
+* IntelliJ IDEA
+* Spigot (`spigot-1.12.2.jar`)
+* [JDA 5.5.0](https://github.com/DV8FromTheWorld/JDA/releases) avec dépendances ( ou autre si vous modifez )
+
+### 📆 Structure du projet
+
+Place les fichiers `.jar` suivants dans un dossier `lib/` à la racine du projet ( comme dans le repo github ) :
+
+```
+/lib/
+  ├— spigot-1.12.2.jar
+  └— JDA-5.5.0-withDependencies.jar
+```
+
+### ⚙️ Configuration de l'artifact (via IntelliJ)
+
+Dans IntelliJ IDEA :
+
+1. Va dans **File > Project Structure > Artifacts**.
+2. Clique sur le `+` et sélectionne **JAR > From modules with dependencies**.
+3. Nomme l'artifact : `ChatDiscord:jar`.
+4. Coche **Include in project build**.
+5. Dans la structure de l'artifact, ajoute :
+
+   * Output module: `ChatDiscord`
+   * `lib/spigot-1.12.2.jar` → extrait dans le `.jar`
+   * `lib/JDA-5.5.0-withDependencies.jar` → extrait dans le `.jar`
+   * `plugin.yml` → copié dans la racine du `.jar`
+6. Spécifie l’output path (exemple) ( si besoin ) :
+
+   ```
+   $PROJECT_DIR$/out/artifacts/ChatDiscord_jar
+   ```
+
+Voici un extrait XML de la configuration d’artifact générée automatiquement par IntelliJ :
+
+```xml
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChatDiscord:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ChatDiscord_jar</output-path>
+    <root id="archive" name="ChatDiscord.jar">
+      <element id="module-output" name="ChatDiscord" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/spigot-1.12.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/JDA-5.5.0-withDependencies.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>
+```
+
+Une fois configuré :
+
+* Compile via **Build > Build Artifacts > ChatDiscord**\*\*:jar\*\*\*\* > Build\*\*.
+* Ton `.jar` final sera dans `out/artifacts/ChatDiscord_jar/ChatDiscord.jar`.
 
 ---
 
+## 🕹️ Commandes
 
-
----
-
-## Développement
-Ce plugin a été développé avec **Spigot API 1.12.2**.
-
-### Structure du projet
-- **Main** : Gère l'activation et la désactivation du plugin.
-- **OnStart** : Initialise la configuration et vérifie les paramètres.
-- **ChatListener** : Écoute les messages du chat Minecraft.
-- **ShowWebhook** : Affiche l'URL du webhook via une commande.
-- **DiscordWebhook** : Gère l'envoi des messages au webhook Discord.
+| Commande           | Description                           | Permission    |
+| ------------------ | ------------------------------------- | ------------- |
+| `/showchatwebhook` | Affiche l'URL du webhook dans le chat | OP uniquement |
 
 ---
 
-## Prochaines améliorations
-- Ajout de la synchronisation bidirectionnelle (Discord vers Minecraft).
-- Support pour plusieurs webhooks.
-- Commandes supplémentaires pour reconfigurer le webhook en jeu.
+## 📌 Remarques importantes
+
+* Ton bot Discord doit avoir les **Intentions activées** sur le portail développeur (MESSAGE\_CONTENT).
+* Le plugin ne dépend d'aucune base de données.
+* Le système est autonome avec JDA et les Webhooks Discord.
 
 ---
 
-## Auteur
-Plugin développé par **sim62149**.
+## 🧑‍💻 Auteur
+
+Développé par **Simon**
+Reversé, maintenu et amélioré depuis des fichiers `.class`.
 
 ---
+
+## 📄 Licence
+
+Ce projet est open-source. Tu peux le modifier ou le redistribuer librement. Un crédit est toujours apprécié 😊
 
 
