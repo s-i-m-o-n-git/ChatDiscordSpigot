@@ -1,0 +1,10 @@
+name: ChatDiscord
+version: 1.0
+main: com.chatdiscord.Main
+api-version: 1.12
+description: Envoie les messages du chat Minecraft à un salon Discord via Webhook.
+author: sim62149
+commands:
+  showchatwebhook:
+    description: Affiche l'URL du webhook Discord actuel.
+    usage: /showchatwebhook
